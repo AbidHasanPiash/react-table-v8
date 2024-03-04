@@ -1,0 +1,82 @@
+[
+    {
+      "id": 1,
+      "first_name": "Katrinka",
+      "last_name": "Crambie",
+      "email": "kcrambie0@dion.ne.jp",
+      "gender": "Female",
+      "children": [
+        {
+          "id": 1,
+          "first_name": "Children First Name 1",
+          "last_name": "Children Last Name 1",
+          "email": "children1@example.com",
+          "gender": "Male"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "first_name": "Micheil",
+      "last_name": "Penwarden",
+      "email": "mpenwarden1@ustream.tv",
+      "gender": "Male",
+      "children": [
+        {
+          "id": 2,
+          "first_name": "Children First Name 2",
+          "last_name": "Children Last Name 2",
+          "email": "children2@example.com",
+          "gender": "Female"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "first_name": "Hilario",
+      "last_name": "Overstreet",
+      "email": "hoverstreet2@msu.edu",
+      "gender": "Male",
+      "children": [
+        {
+          "id": 3,
+          "first_name": "Children First Name 3",
+          "last_name": "Children Last Name 3",
+          "email": "children3@example.com",
+          "gender": "Male"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "first_name": "Bennie",
+      "last_name": "Tennison",
+      "email": "btennison3@surveymonkey.com",
+      "gender": "Male",
+      "children": [
+        {
+          "id": 4,
+          "first_name": "Children First Name 4",
+          "last_name": "Children Last Name 4",
+          "email": "children4@example.com",
+          "gender": "Female"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "first_name": "Fidela",
+      "last_name": "Brosi",
+      "email": "fbrosi4@cpanel.net",
+      "gender": "Female",
+      "children": [
+        {
+          "id": 5,
+          "first_name": "Children First Name 5",
+          "last_name": "Children Last Name 5",
+          "email": "children5@example.com",
+          "gender": "Male"
+        }
+      ]
+    }
+  ]

@@ -1,0 +1,96 @@
+[
+    {
+      "firstName": "Tanner",
+      "lastName": "Linsley",
+      "age": 24,
+      "visits": 100,
+      "progress": 50,
+      "status": "relationship",
+      "subRows": [
+        {
+          "firstName": "Alice",
+          "lastName": "Johnson",
+          "age": 28,
+          "visits": 80,
+          "progress": 70,
+          "status": "relationship",
+          "subRows": [
+            {
+              "firstName": "Alice",
+              "lastName": "Johnson",
+              "age": 28,
+              "visits": 80,
+              "progress": 70,
+              "status": "relationship",
+              "subRows": null
+            },
+            {
+              "firstName": "Bob",
+              "lastName": "Smith",
+              "age": 35,
+              "visits": 60,
+              "progress": 90,
+              "status": "single",
+              "subRows": null
+            }
+          ]
+        },
+        {
+          "firstName": "Bob",
+          "lastName": "Smith",
+          "age": 35,
+          "visits": 60,
+          "progress": 90,
+          "status": "single",
+          "subRows": null
+        }
+      ]
+    },
+    {
+      "firstName": "Tandy",
+      "lastName": "Miller",
+      "age": 40,
+      "visits": 40,
+      "progress": 80,
+      "status": "single",
+      "subRows": [
+        {
+          "firstName": "Carol",
+          "lastName": "Jones",
+          "age": 45,
+          "visits": 30,
+          "progress": 60,
+          "status": "single",
+          "subRows": null
+        }
+      ]
+    },
+    {
+      "firstName": "Joe",
+      "lastName": "Dirte",
+      "age": 45,
+      "visits": 20,
+      "progress": 10,
+      "status": "complicated",
+      "subRows": [
+        {
+          "firstName": "David",
+          "lastName": "Brown",
+          "age": 50,
+          "visits": 10,
+          "progress": 20,
+          "status": "complicated",
+          "subRows": null
+        },
+        {
+          "firstName": "Emma",
+          "lastName": "White",
+          "age": 55,
+          "visits": 5,
+          "progress": 30,
+          "status": "single",
+          "subRows": null
+        }
+      ]
+    }
+  ]
