@@ -10,9 +10,9 @@ import {
     getExpandedRowModel,
     flexRender,
 } from '@tanstack/react-table';
+import { HiChevronDoubleLeft, HiChevronDoubleRight, HiChevronLeft, HiChevronRight } from 'react-icons/hi';
 
 export default function ExpandRowTable() {
-    const rerender = useState({})[1];
 
     const columns = useMemo(() => COLUMN, []);
     const data = useMemo(() => PERSON, []);
@@ -76,44 +76,48 @@ export default function ExpandRowTable() {
                 </tbody>
             </table>
             <div className="h-2" />
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 p-4">
                 <button
-                    className="border rounded p-1"
+                    title='Start'
+                    className="border rounded-lg px-2 py-1.5 hover:text-sky-400 cursor-pointer bg-gray-200 hover:border-sky-400"
                     onClick={() => table.setPageIndex(0)}
                     disabled={!table.getCanPreviousPage()}
                 >
-                    {'<<'}
+                    <span><HiChevronDoubleLeft /></span>
                 </button>
                 <button
-                    className="border rounded p-1"
+                    title='Previous'
+                    className="border rounded-lg px-2 py-1.5 hover:text-sky-400 cursor-pointer bg-gray-200 hover:border-sky-400"
                     onClick={() => table.previousPage()}
                     disabled={!table.getCanPreviousPage()}
                 >
-                    {'<'}
+                    <span><HiChevronLeft/></span>
                 </button>
                 <button
-                    className="border rounded p-1"
+                    title='Next'
+                    className="border rounded-lg px-2 py-1.5 hover:text-sky-400 cursor-pointer bg-gray-200 hover:border-sky-400"
                     onClick={() => table.nextPage()}
                     disabled={!table.getCanNextPage()}
                 >
-                    {'>'}
+                    <span><HiChevronRight/></span>
                 </button>
                 <button
-                    className="border rounded p-1"
+                    title='End'
+                    className="border rounded-lg px-2 py-1.5 hover:text-sky-400 cursor-pointer bg-gray-200 hover:border-sky-400"
                     onClick={() => table.setPageIndex(table.getPageCount() - 1)}
                     disabled={!table.getCanNextPage()}
                 >
-                    {'>>'}
+                    <span><HiChevronDoubleRight/></span>
                 </button>
-                <span className="flex items-center gap-1">
-                    <div>Page</div>
+                <span className="flex items-center gap-1 border rounded-lg px-2 py-0.5 bg-gray-200 hover:border-sky-400">
+                    <span>Page</span>
                     <strong>
                         {table.getState().pagination.pageIndex + 1} of{' '}
                         {table.getPageCount()}
                     </strong>
+                    <span> | Go to page:</span>
                 </span>
                 <span className="flex items-center gap-1">
-                    | Go to page:
                     <input
                         type="number"
                         defaultValue={table.getState().pagination.pageIndex + 1}
@@ -123,10 +127,11 @@ export default function ExpandRowTable() {
                                 : 0;
                             table.setPageIndex(page);
                         }}
-                        className="border p-1 rounded w-16"
+                        className="w-16 border rounded-lg px-2 py-0.5 hover:text-sky-400 cursor-pointer bg-gray-200 hover:border-sky-400"
                     />
                 </span>
                 <select
+                    className='border rounded-lg px-2 py-1 cursor-pointer bg-gray-200 hover:border-sky-400'
                     value={table.getState().pagination.pageSize}
                     onChange={(e) => {
                         table.setPageSize(Number(e.target.value));
@@ -139,16 +144,15 @@ export default function ExpandRowTable() {
                     ))}
                 </select>
             </div>
-            <div>{table.getRowModel().rows.length} Rows</div>
-            <div>
-                <button onClick={() => rerender({})}>Force Rerender</button>
+            <div className='p-4 text-white'>
+                <div>{table.getRowModel().rows.length} Rows</div>
+                <label>Expanded State:</label>
+                <pre>{JSON.stringify(expanded, null, 2)}</pre>
+                <label>Row Selection State:</label>
+                <pre>
+                    {JSON.stringify(table.getState().rowSelection, null, 2)}
+                </pre>
             </div>
-            <label>Expanded State:</label>
-            <pre>{JSON.stringify(expanded, null, 2)}</pre>
-            <label>Row Selection State:</label>
-            <pre>
-                {JSON.stringify(table.getState().rowSelection, null, 2)}
-            </pre>
         </div>
     );
 }
@@ -171,7 +175,7 @@ function Filter({ column, table }) {
                     ])
                 }
                 placeholder={`Min`}
-                className="w-24 border shadow rounded"
+                className="w-24 text-sm border rounded-lg px-2 py-1 placeholder:font-thin placeholder:text-gray-700 outline-none bg-gray-200/50 hover:border-sky-400"
             />
             <input
                 type="number"
@@ -183,7 +187,7 @@ function Filter({ column, table }) {
                     ])
                 }
                 placeholder={`Max`}
-                className="w-24 border shadow rounded"
+                className="w-24 text-sm border rounded-lg px-2 py-1 placeholder:font-thin placeholder:text-gray-700 outline-none bg-gray-200/50 hover:border-sky-400"
             />
         </div>
     ) : (
@@ -192,7 +196,7 @@ function Filter({ column, table }) {
             value={columnFilterValue || ''}
             onChange={(e) => column.setFilterValue(e.target.value)}
             placeholder={`Search...`}
-            className="w-36 border shadow rounded"
+            className="w-36 text-sm border rounded-lg px-2 py-1 placeholder:font-thin placeholder:text-gray-700 outline-none bg-gray-200/50 hover:border-sky-400"
         />
     );
 }
