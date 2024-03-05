@@ -1,10 +1,8 @@
 'use client'
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 import PERSON from '@/data/PERSON.json'
+import { COLUMN, GROUPED_COLUMN } from './Columns'
 import {
-    Column,
-    Table,
-    ExpandedState,
     useReactTable,
     getCoreRowModel,
     getPaginationRowModel,
@@ -12,98 +10,11 @@ import {
     getExpandedRowModel,
     flexRender,
 } from '@tanstack/react-table';
-// import { makeData } from '@/components/common/makeData';
 
 export default function ExpandRowTable() {
     const rerender = useState({})[1];
 
-    const columns = useMemo(
-        () => [
-            {
-                header: 'Name',
-                footer: (props) => props.column.id,
-                columns: [
-                    {
-                        accessorKey: 'firstName',
-                        header: ({ table }) => (
-                            <>
-                                <IndeterminateCheckbox
-                                    checked={table.getIsAllRowsSelected()}
-                                    indeterminate={table.getIsSomeRowsSelected()}
-                                    onChange={table.getToggleAllRowsSelectedHandler()}
-                                />{' '}
-                                <button
-                                    onClick={table.getToggleAllRowsExpandedHandler()}
-                                >
-                                    {table.getIsAllRowsExpanded() ? '👇' : '👉'}
-                                </button>{' '}
-                                First Name
-                            </>
-                        ),
-                        cell: ({ row, getValue }) => (
-                            <div>
-                                <>
-                                    <IndeterminateCheckbox
-                                        checked={row.getIsSelected()}
-                                        indeterminate={row.getIsSomeSelected()}
-                                        onChange={row.getToggleSelectedHandler()}
-                                    />{' '}
-                                    {row.getCanExpand() ? (
-                                        <button onClick={row.getToggleExpandedHandler()}>
-                                            {row.getIsExpanded() ? '👇' : '👉'}
-                                        </button>
-                                    ) : (
-                                        '🔵'
-                                    )}{' '}
-                                    {getValue()}
-                                </>
-                            </div>
-                        ),
-                        footer: (props) => props.column.id,
-                    },
-                    {
-                        accessorFn: (row) => row.lastName,
-                        id: 'lastName',
-                        cell: (info) => info.getValue(),
-                        header: () => <span>Last Name</span>,
-                        footer: (props) => props.column.id,
-                    },
-                ],
-            },
-            {
-                header: 'Info',
-                footer: (props) => props.column.id,
-                columns: [
-                    {
-                        accessorKey: 'age',
-                        header: () => 'Age',
-                        footer: (props) => props.column.id,
-                    },
-                    {
-                        header: 'More Info',
-                        columns: [
-                            {
-                                accessorKey: 'visits',
-                                header: () => <span>Visits</span>,
-                                footer: (props) => props.column.id,
-                            },
-                            {
-                                accessorKey: 'status',
-                                header: 'Status',
-                                footer: (props) => props.column.id,
-                            },
-                            {
-                                accessorKey: 'progress',
-                                header: 'Profile Progress',
-                                footer: (props) => props.column.id,
-                            },
-                        ],
-                    },
-                ],
-            },
-        ],
-        []
-    );
+    const columns = useMemo(() => COLUMN, []);
     const data = useMemo(() => PERSON, []);
 
     const [expanded, setExpanded] = useState({});
@@ -124,14 +35,13 @@ export default function ExpandRowTable() {
     });
 
     return (
-        <div className="p-2">
-            <div className="h-2" />
-            <table>
+        <div>
+            <table className='table-auto border-collapse w-full'>
                 <thead>
                     {table.getHeaderGroups().map((headerGroup) => (
-                        <tr key={headerGroup.id}>
+                        <tr key={headerGroup.id} className="bg-gray-300">
                             {headerGroup.headers.map((header) => (
-                                <th key={header.id} colSpan={header.colSpan}>
+                                <th key={header.id} colSpan={header.colSpan} className="px-4 py-2 text-left">
                                     {header.isPlaceholder ? null : (
                                         <div>
                                             {flexRender(
@@ -152,9 +62,9 @@ export default function ExpandRowTable() {
                 </thead>
                 <tbody>
                     {table.getRowModel().rows.map((row) => (
-                        <tr key={row.id}>
+                        <tr key={row.id} className="border-t border-gray-200 hover:bg-gray-100 even:bg-gray-50">
                             {row.getVisibleCells().map((cell) => (
-                                <td key={cell.id}>
+                                <td key={cell.id} className="px-4 py-2 text-left">
                                     {flexRender(
                                         cell.column.columnDef.cell,
                                         cell.getContext()
@@ -283,29 +193,6 @@ function Filter({ column, table }) {
             onChange={(e) => column.setFilterValue(e.target.value)}
             placeholder={`Search...`}
             className="w-36 border shadow rounded"
-        />
-    );
-}
-
-function IndeterminateCheckbox({
-    indeterminate,
-    className = '',
-    ...rest
-}) {
-    const ref = useRef(null);
-
-    useEffect(() => {
-        if (typeof indeterminate === 'boolean') {
-            ref.current.indeterminate = !rest.checked && indeterminate;
-        }
-    }, [ref, indeterminate]);
-
-    return (
-        <input
-            type="checkbox"
-            ref={ref}
-            className={className + ' cursor-pointer'}
-            {...rest}
         />
     );
 }

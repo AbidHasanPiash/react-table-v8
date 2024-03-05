@@ -1,68 +1,172 @@
+import { useEffect, useRef } from "react";
+
 export const COLUMN = [
     {
-        Header: 'ID',
-        Footer: 'ID',
-        accessor: 'id',
-        disableFilters: true
+        accessorKey: 'firstName',
+        header: ({ table }) => (
+            <>
+                <IndeterminateCheckbox
+                    checked={table.getIsAllRowsSelected()}
+                    indeterminate={table.getIsSomeRowsSelected()}
+                    onChange={table.getToggleAllRowsSelectedHandler()}
+                />{' '}
+                <button
+                    onClick={table.getToggleAllRowsExpandedHandler()}
+                >
+                    {table.getIsAllRowsExpanded() ? '👇' : '👉'}
+                </button>{' '}
+                First Name
+            </>
+        ),
+        cell: ({ row, getValue }) => (
+            <div>
+                <>
+                    <IndeterminateCheckbox
+                        checked={row.getIsSelected()}
+                        indeterminate={row.getIsSomeSelected()}
+                        onChange={row.getToggleSelectedHandler()}
+                    />{' '}
+                    {row.getCanExpand() ? (
+                        <button onClick={row.getToggleExpandedHandler()}>
+                            {row.getIsExpanded() ? '👇' : '👉'}
+                        </button>
+                    ) : (
+                        '🔵'
+                    )}{' '}
+                    {getValue()}
+                </>
+            </div>
+        ),
+        footer: (props) => props.column.id,
     },
     {
-        Header: 'First Name',
-        Footer: 'First Name',
-        accessor: 'first_name'
+        accessorFn: (row) => row.lastName,
+        id: 'lastName',
+        cell: (info) => info.getValue(),
+        header: () => <span>Last Name</span>,
+        footer: (props) => props.column.id,
     },
     {
-        Header: 'Last Name',
-        Footer: 'Last Name',
-        accessor: 'last_name'
+        accessorKey: 'visits',
+        header: () => <span>Visits</span>,
+        footer: (props) => props.column.id,
     },
     {
-        Header: 'Email',
-        Footer: 'Email',
-        accessor: 'email'
+        accessorKey: 'status',
+        header: 'Status',
+        footer: (props) => props.column.id,
     },
     {
-        Header: 'Gender',
-        Footer: 'Gender',
-        accessor: 'gender'
+        accessorKey: 'progress',
+        header: 'Profile Progress',
+        footer: (props) => props.column.id,
     },
 ]
 
 export const GROUPED_COLUMN = [
     {
-        Header: 'ID',
-        Footer: 'ID',
-        accessor: 'id'
-    },
-    {
-        Header: 'Name',
-        Footer: 'Name',
+        header: 'Name',
+        footer: (props) => props.column.id,
         columns: [
             {
-                Header: 'First Name',
-                Footer: 'First Name',
-                accessor: 'first_name'
+                accessorKey: 'firstName',
+                header: ({ table }) => (
+                    <>
+                        <IndeterminateCheckbox
+                            checked={table.getIsAllRowsSelected()}
+                            indeterminate={table.getIsSomeRowsSelected()}
+                            onChange={table.getToggleAllRowsSelectedHandler()}
+                        />{' '}
+                        <button
+                            onClick={table.getToggleAllRowsExpandedHandler()}
+                        >
+                            {table.getIsAllRowsExpanded() ? '👇' : '👉'}
+                        </button>{' '}
+                        First Name
+                    </>
+                ),
+                cell: ({ row, getValue }) => (
+                    <div>
+                        <>
+                            <IndeterminateCheckbox
+                                checked={row.getIsSelected()}
+                                indeterminate={row.getIsSomeSelected()}
+                                onChange={row.getToggleSelectedHandler()}
+                            />{' '}
+                            {row.getCanExpand() ? (
+                                <button onClick={row.getToggleExpandedHandler()}>
+                                    {row.getIsExpanded() ? '👇' : '👉'}
+                                </button>
+                            ) : (
+                                '🔵'
+                            )}{' '}
+                            {getValue()}
+                        </>
+                    </div>
+                ),
+                footer: (props) => props.column.id,
             },
             {
-                Header: 'Last Name',
-                Footer: 'Last Name',
-                accessor: 'last_name'
+                accessorFn: (row) => row.lastName,
+                id: 'lastName',
+                cell: (info) => info.getValue(),
+                header: () => <span>Last Name</span>,
+                footer: (props) => props.column.id,
             },
-        ]
+        ],
     },
     {
-        Header: 'Info',
-        Footer: 'Info',
+        header: 'Info',
+        footer: (props) => props.column.id,
         columns: [
             {
-                Header: 'Email',
-                Footer: 'Email',
-                accessor: 'email'
+                accessorKey: 'age',
+                header: () => 'Age',
+                footer: (props) => props.column.id,
             },
             {
-                Header: 'Gender',
-                Footer: 'Gender',
-                accessor: 'gender'
+                header: 'More Info',
+                columns: [
+                    {
+                        accessorKey: 'visits',
+                        header: () => <span>Visits</span>,
+                        footer: (props) => props.column.id,
+                    },
+                    {
+                        accessorKey: 'status',
+                        header: 'Status',
+                        footer: (props) => props.column.id,
+                    },
+                    {
+                        accessorKey: 'progress',
+                        header: 'Profile Progress',
+                        footer: (props) => props.column.id,
+                    },
+                ],
             },
-        ]
-    }
+        ],
+    },
 ]
+
+function IndeterminateCheckbox({
+    indeterminate,
+    className = '',
+    ...rest
+}) {
+    const ref = useRef(null);
+
+    useEffect(() => {
+        if (typeof indeterminate === 'boolean') {
+            ref.current.indeterminate = !rest.checked && indeterminate;
+        }
+    }, [ref, indeterminate]);
+
+    return (
+        <input
+            type="checkbox"
+            ref={ref}
+            className={className + ' cursor-pointer'}
+            {...rest}
+        />
+    );
+}

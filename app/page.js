@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <main>
       <ExpandRowTable/>
-      <BasicTable/>
+      {/* <BasicTable/> */}
     </main>
   );
 }
