@@ -35,11 +35,11 @@ export default function ExpandRowTable() {
     });
 
     return (
-        <div>
+        <div className=''>
             <table className='table-auto border-collapse w-full'>
                 <thead>
                     {table.getHeaderGroups().map((headerGroup) => (
-                        <tr key={headerGroup.id} className="bg-gray-300">
+                        <tr key={headerGroup.id} className="bg-gray-300/50">
                             {headerGroup.headers.map((header) => (
                                 <th key={header.id} colSpan={header.colSpan} className="px-4 py-2 text-left">
                                     {header.isPlaceholder ? null : (
@@ -62,7 +62,7 @@ export default function ExpandRowTable() {
                 </thead>
                 <tbody>
                     {table.getRowModel().rows.map((row) => (
-                        <tr key={row.id} className="border-t border-gray-200 hover:bg-gray-100 even:bg-gray-50">
+                        <tr key={row.id} className="border-t border-gray-200 hover:bg-blue-300/30 even:bg-gray-50/30">
                             {row.getVisibleCells().map((cell) => (
                                 <td key={cell.id} className="px-4 py-2 text-left">
                                     {flexRender(

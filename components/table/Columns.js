@@ -1,40 +1,50 @@
+import { HiOutlineChevronDown, HiOutlineChevronRight } from "react-icons/hi";
 import { useEffect, useRef } from "react";
 
 export const COLUMN = [
     {
         accessorKey: 'firstName',
         header: ({ table }) => (
-            <>
+            <div className="flex items-center space-x-2 h-8">
                 <IndeterminateCheckbox
                     checked={table.getIsAllRowsSelected()}
                     indeterminate={table.getIsSomeRowsSelected()}
                     onChange={table.getToggleAllRowsSelectedHandler()}
-                />{' '}
-                <button
-                    onClick={table.getToggleAllRowsExpandedHandler()}
-                >
-                    {table.getIsAllRowsExpanded() ? '👇' : '👉'}
-                </button>{' '}
-                First Name
-            </>
+                />
+                <button onClick={table.getToggleAllRowsExpandedHandler()}>
+                    {table.getIsAllRowsExpanded() 
+                    ? <span className="p-0.5 rounded-full h-5 w-5 flex items-center justify-center hover:bg-blue-300"><HiOutlineChevronDown/></span> 
+                    : <span className="p-0.5 rounded-full h-5 w-5 flex items-center justify-center hover:bg-blue-300"><HiOutlineChevronRight/></span> }
+                </button>
+                <span>First Name</span>
+            </div>
         ),
         cell: ({ row, getValue }) => (
-            <div>
-                <>
-                    <IndeterminateCheckbox
-                        checked={row.getIsSelected()}
-                        indeterminate={row.getIsSomeSelected()}
-                        onChange={row.getToggleSelectedHandler()}
-                    />{' '}
-                    {row.getCanExpand() ? (
-                        <button onClick={row.getToggleExpandedHandler()}>
-                            {row.getIsExpanded() ? '👇' : '👉'}
-                        </button>
-                    ) : (
-                        '🔵'
-                    )}{' '}
-                    {getValue()}
-                </>
+            <div
+                className="flex items-center space-x-2 h-6"
+                style={{
+                // Since rows are flattened by default,
+                // we can use the row.depth property
+                // and paddingLeft to visually indicate the depth
+                // of the row
+                paddingLeft: `${row.depth * 2}rem`,
+                }}
+            >
+                <IndeterminateCheckbox
+                    checked={row.getIsSelected()}
+                    indeterminate={row.getIsSomeSelected()}
+                    onChange={row.getToggleSelectedHandler()}
+                />
+                {row.getCanExpand() ? (
+                    <button onClick={row.getToggleExpandedHandler()} className="">
+                        {row.getIsExpanded() 
+                        ? <span className="p-0.5 rounded-full h-5 w-5 flex items-center justify-center hover:bg-blue-100"><HiOutlineChevronDown/></span> 
+                        : <span className="p-0.5 rounded-full h-5 w-5 flex items-center justify-center hover:bg-blue-100"><HiOutlineChevronRight/></span> }
+                    </button>
+                ) : (
+                    <span>🔵</span>
+                )}
+                <span>{getValue()}</span>
             </div>
         ),
         footer: (props) => props.column.id,
