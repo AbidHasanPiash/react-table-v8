@@ -144,7 +144,7 @@ export default function ExpandRowTable() {
                     ))}
                 </select>
             </div>
-            <div className='p-4 text-white'>
+            <div className='p-4'>
                 <div>{table.getRowModel().rows.length} Rows</div>
                 <label>Expanded State:</label>
                 <pre>{JSON.stringify(expanded, null, 2)}</pre>
@@ -175,7 +175,7 @@ function Filter({ column, table }) {
                     ])
                 }
                 placeholder={`Min`}
-                className="w-24 text-sm border rounded-lg px-2 py-1 placeholder:font-thin placeholder:text-gray-700 outline-none bg-gray-200/50 hover:border-sky-400"
+                className="w-24 text-sm border rounded-lg px-2 py-1 placeholder:font-thin placeholder:text-gray-800 outline-none bg-gray-200/50 hover:border-sky-400"
             />
             <input
                 type="number"
@@ -187,7 +187,7 @@ function Filter({ column, table }) {
                     ])
                 }
                 placeholder={`Max`}
-                className="w-24 text-sm border rounded-lg px-2 py-1 placeholder:font-thin placeholder:text-gray-700 outline-none bg-gray-200/50 hover:border-sky-400"
+                className="w-24 text-sm border rounded-lg px-2 py-1 placeholder:font-thin placeholder:text-gray-800 outline-none bg-gray-200/50 hover:border-sky-400"
             />
         </div>
     ) : (
@@ -196,7 +196,7 @@ function Filter({ column, table }) {
             value={columnFilterValue || ''}
             onChange={(e) => column.setFilterValue(e.target.value)}
             placeholder={`Search...`}
-            className="w-36 text-sm border rounded-lg px-2 py-1 placeholder:font-thin placeholder:text-gray-700 outline-none bg-gray-200/50 hover:border-sky-400"
+            className="w-36 text-sm border rounded-lg px-2 py-1 placeholder:font-thin placeholder:text-gray-800 outline-none bg-gray-200/50 hover:border-sky-400"
         />
     );
 }

@@ -8,7 +8,11 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        "hero": "url('/tech.gif')",
+        "tech": "url('/tech.gif')",
+        "earth": "url('/earth.gif')",
+        "doddle": "url('/doddle.gif')",
+        "chill": "url('/chill.webp')",
+        "hero": "url('/bg.gif')",
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
